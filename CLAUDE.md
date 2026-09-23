@@ -54,15 +54,13 @@ src/app/
 ├── core/                             No UI
 │   ├── models/league.model.ts        League, Season, API response types
 │   └── services/
-│       ├── request-cache.ts          Observable cache (shareReplay, in-flight de-dup, error eviction)
-│       └── sports-api.service.ts     All HTTP calls; normalizes API quirks
+│       └── sports-api.service.ts     All HTTP calls + in-memory cache; normalizes API quirks
 ├── features/leagues/
 │   ├── state/leagues.store.ts        Signal store: source signals, computed selectors, actions
 │   ├── pages/leagues-page/           CONTAINER: the only component that talks to the store
 │   └── components/                   PRESENTATIONAL (input()/output())
 │       ├── league-search/            Debounced search field
 │       ├── sport-filter/             Sport dropdown (built from the data)
-│       ├── league-list/              Responsive grid
 │       ├── league-card/              Expandable card (aria-expanded, enter animation)
 │       └── league-details/           Lazy badge + alternate names (rxResource)
 └── shared/
@@ -75,7 +73,7 @@ src/app/
 ## Conventions
 
 - Standalone components, `ChangeDetectionStrategy.OnPush`, signal APIs (`input`, `output`, `computed`), and the new template syntax.
-- HTTP only through `SportsApiService`, and every call goes through `RequestCache`.
+- HTTP only through `SportsApiService`; every call goes through its `cached()` helper.
 - Styling: Tailwind utilities for layout and spacing, Material `--mat-sys-*` tokens for colors and typography.
 - New config values go in `environment.ts`, never hard-coded in components.
 - Tests sit next to the code (`*.spec.ts`).

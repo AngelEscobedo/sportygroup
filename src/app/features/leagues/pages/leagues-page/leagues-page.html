@@ -38,12 +38,18 @@
       </p>
 
       @if (store.filteredLeagues().length) {
-        <app-league-list
-          [leagues]="store.filteredLeagues()"
-          [expandedLeagueId]="store.expandedLeagueId()"
-          [featuredLeagueId]="store.featuredLeagueId"
-          (toggle)="store.toggleExpanded($event)"
-        />
+        <ul class="league-grid grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          @for (league of store.filteredLeagues(); track league.idLeague) {
+            <li>
+              <app-league-card
+                [league]="league"
+                [expanded]="league.idLeague === store.expandedLeagueId()"
+                [featured]="league.idLeague === store.featuredLeagueId"
+                (toggle)="store.toggleExpanded(league.idLeague)"
+              />
+            </li>
+          }
+        </ul>
       } @else {
         <app-state-message
           icon="search_off"

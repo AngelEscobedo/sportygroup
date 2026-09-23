@@ -30,6 +30,18 @@ describe('SportsApiService', () => {
     http.expectNone((req) => req.url.endsWith('/all_leagues.php'));
   });
 
+  it('does not cache failed requests, so they can be retried', async () => {
+    const failed = firstValueFrom(api.getAllLeagues());
+    http
+      .expectOne((req) => req.url.endsWith('/all_leagues.php'))
+      .flush(null, { status: 500, statusText: 'Server Error' });
+    await expect(failed).rejects.toBeTruthy();
+
+    const retry = firstValueFrom(api.getAllLeagues());
+    http.expectOne((req) => req.url.endsWith('/all_leagues.php')).flush({ leagues: [] });
+    expect(await retry).toEqual([]);
+  });
+
   it('returns the first season that has a badge', async () => {
     const result = firstValueFrom(api.getSeasonBadge('4328'));
     http

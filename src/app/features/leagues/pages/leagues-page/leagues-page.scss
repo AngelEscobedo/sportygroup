@@ -59,6 +59,12 @@
   background: var(--mat-sys-surface);
 }
 
+.league-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .results-count {
   margin: 0;
   font: var(--mat-sys-label-large);

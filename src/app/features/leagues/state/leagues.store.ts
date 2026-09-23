@@ -1,29 +1,29 @@
-import { DestroyRef, Injectable, computed, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Injectable, computed, inject, signal } from '@angular/core';
 
 import { environment } from '../../../../environments/environment';
 import { League } from '../../../core/models/league.model';
 import { SportsApiService } from '../../../core/services/sports-api.service';
 
-export type LoadStatus = 'idle' | 'loading' | 'success' | 'error';
-
-/** Case- and accent-insensitive form used for searching. */
+/** Case- and accent-insensitive form used for searching ("Ligué" → "ligue"). */
 const normalize = (value: string): string =>
-  value.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+  value
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .toLowerCase()
+    .trim();
 
 /**
- * Signal-based state for the leagues feature: the league list, filter
- * criteria, derived (filtered) data and which card is expanded.
+ * State for the leagues feature. Writable signals are private and only changed
+ * through the methods below; everything the UI needs to derive is `computed`.
  */
 @Injectable()
 export class LeaguesStore {
   private readonly api = inject(SportsApiService);
-  private readonly destroyRef = inject(DestroyRef);
 
   readonly featuredLeagueId = environment.featuredLeagueId;
 
   private readonly _leagues = signal<League[]>([]);
-  private readonly _status = signal<LoadStatus>('idle');
+  private readonly _status = signal<'loading' | 'success' | 'error'>('loading');
   private readonly _searchTerm = signal('');
   private readonly _selectedSport = signal<string | null>(null);
   private readonly _expandedLeagueId = signal<string | null>(null);
@@ -36,11 +36,7 @@ export class LeaguesStore {
   readonly totalCount = computed(() => this._leagues().length);
 
   /** Unique sports present in the data, alphabetically. */
-  readonly sports = computed(() =>
-    [...new Set(this._leagues().map((league) => league.strSport))].sort((a, b) =>
-      a.localeCompare(b),
-    ),
-  );
+  readonly sports = computed(() => [...new Set(this._leagues().map((l) => l.strSport))].sort());
 
   /** Leagues matching the current filters, featured league first. */
   readonly filteredLeagues = computed(() => {
@@ -51,7 +47,6 @@ export class LeaguesStore {
       .filter((league) => !sport || league.strSport === sport)
       .filter(
         (league) =>
-          !term ||
           normalize(league.strLeague).includes(term) ||
           normalize(league.strLeagueAlternate ?? '').includes(term),
       )
@@ -68,16 +63,13 @@ export class LeaguesStore {
 
   load(): void {
     this._status.set('loading');
-    this.api
-      .getAllLeagues()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (leagues) => {
-          this._leagues.set(leagues);
-          this._status.set('success');
-        },
-        error: () => this._status.set('error'),
-      });
+    this.api.getAllLeagues().subscribe({
+      next: (leagues) => {
+        this._leagues.set(leagues);
+        this._status.set('success');
+      },
+      error: () => this._status.set('error'),
+    });
   }
 
   setSearchTerm(term: string): void {
