@@ -1,0 +1,11 @@
+/*
+ * Tailwind v4 entry point. Kept as plain CSS because Tailwind v4 must not be
+ * processed by Sass. Preflight (Tailwind's CSS reset) is intentionally left out
+ * so it does not fight Angular Material's own base styles.
+ */
+@layer theme, base, components, utilities;
+
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@source './app';
