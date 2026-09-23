@@ -29,5 +29,5 @@ I used **Claude Code** (Anthropic, Claude Opus model) as a pair programmer durin
 ## How I validated the output
 
 - Read and reviewed every generated file. Kept the code consistent with the structure and conventions I asked for.
-- Ran the production build and the test suite (10/10 passing).
+- Ran the production build and the test suite (9/9 passing).
 - Tested the flows manually on desktop and mobile.
