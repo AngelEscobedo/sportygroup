@@ -1,0 +1,36 @@
+<article class="card">
+  <button
+    type="button"
+    class="card-header flex w-full items-center gap-4 p-4 text-left"
+    [attr.aria-expanded]="expanded()"
+    [attr.aria-controls]="detailsId()"
+    (click)="toggle.emit()"
+  >
+    <span class="sport-avatar flex shrink-0 items-center justify-center" aria-hidden="true">
+      <mat-icon>{{ icon() }}</mat-icon>
+    </span>
+
+    <span class="flex min-w-0 flex-1 flex-col gap-1">
+      <span class="flex flex-wrap items-center gap-2">
+        <span class="sport-chip">{{ league().strSport }}</span>
+        @if (featured()) {
+          <span class="featured-chip flex items-center gap-1">
+            <mat-icon inline>star</mat-icon> Featured
+          </span>
+        }
+      </span>
+      <span class="league-name">{{ league().strLeague }}</span>
+      @if (league().strLeagueAlternate) {
+        <span class="league-alt truncate">{{ league().strLeagueAlternate }}</span>
+      }
+    </span>
+
+    <mat-icon class="chevron shrink-0" aria-hidden="true">expand_more</mat-icon>
+  </button>
+
+  @if (expanded()) {
+    <div [id]="detailsId()" class="card-body" animate.enter="card-body-enter">
+      <app-league-details [league]="league()" />
+    </div>
+  }
+</article>

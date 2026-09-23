@@ -1,0 +1,61 @@
+<div class="flex flex-col items-center gap-4 p-4 sm:flex-row sm:items-start">
+  <!-- Season badge -->
+  <div class="badge-frame flex shrink-0 items-center justify-center">
+    @if (badge.isLoading()) {
+      <mat-spinner diameter="32" aria-label="Loading season badge" />
+    } @else if (badge.error()) {
+      <div class="flex flex-col items-center gap-1 text-center">
+        <mat-icon class="muted">cloud_off</mat-icon>
+        <button matButton type="button" (click)="retryBadge()">Retry</button>
+      </div>
+    } @else if (season(); as current) {
+      @if (!imageFailed()) {
+        <img
+          class="badge-img"
+          [src]="current.strBadge"
+          [alt]="league().strLeague + ' badge, season ' + current.strSeason"
+          loading="lazy"
+          (error)="imageFailed.set(true)"
+        />
+      } @else {
+        <mat-icon class="muted">broken_image</mat-icon>
+      }
+    } @else {
+      <div class="flex flex-col items-center gap-1 text-center">
+        <mat-icon class="muted">shield</mat-icon>
+        <span class="caption">No badge available</span>
+      </div>
+    }
+  </div>
+
+  <!-- Info -->
+  <dl class="flex min-w-0 flex-1 flex-col gap-3">
+    <div>
+      <dt class="label">Season</dt>
+      <dd class="value">
+        @if (badge.isLoading()) {
+          <span class="skeleton w-24"></span>
+        } @else {
+          {{ season()?.strSeason ?? '—' }}
+        }
+      </dd>
+    </div>
+
+    <div>
+      <dt class="label">Also known as</dt>
+      <dd class="value">
+        @if (alternateNames().length) {
+          <ul class="flex flex-wrap gap-2" role="list">
+            @for (name of alternateNames(); track name) {
+              <li class="alt-chip">{{ name }}</li>
+            }
+          </ul>
+        } @else if (details.isLoading()) {
+          <span class="skeleton w-40"></span>
+        } @else {
+          —
+        }
+      </dd>
+    </div>
+  </dl>
+</div>

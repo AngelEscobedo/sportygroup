@@ -1,0 +1,16 @@
+<div
+  class="flex flex-col items-center gap-2 px-4 py-12 text-center"
+  [class.error]="tone() === 'error'"
+  [attr.role]="tone() === 'error' ? 'alert' : 'status'"
+>
+  <mat-icon class="state-icon">{{ icon() }}</mat-icon>
+  <h2 class="state-title">{{ title() }}</h2>
+  @if (message()) {
+    <p class="state-message">{{ message() }}</p>
+  }
+  @if (actionLabel()) {
+    <button matButton="tonal" type="button" class="mt-2" (click)="action.emit()">
+      {{ actionLabel() }}
+    </button>
+  }
+</div>

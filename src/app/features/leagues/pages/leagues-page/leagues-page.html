@@ -1,0 +1,53 @@
+<section class="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-6 sm:py-10">
+  <header class="flex flex-col gap-1">
+    <h1 class="page-title">Sports Leagues</h1>
+    <p class="page-subtitle">Browse leagues and tap a card to reveal its season badge.</p>
+  </header>
+
+  <div class="filters grid grid-cols-1 gap-3 sm:grid-cols-[2fr_1fr]" role="search">
+    <app-league-search [value]="store.searchTerm()" (searchChange)="store.setSearchTerm($event)" />
+    <app-sport-filter
+      [sports]="store.sports()"
+      [selected]="store.selectedSport()"
+      (selectedChange)="store.setSelectedSport($event)"
+    />
+  </div>
+
+  @switch (store.status()) {
+    @case ('loading') {
+      <mat-progress-bar mode="indeterminate" aria-label="Loading leagues" />
+    }
+    @case ('error') {
+      <app-state-message
+        tone="error"
+        icon="wifi_off"
+        title="Couldn't load leagues"
+        message="Check your connection or try again in a moment (the free API is rate-limited)."
+        actionLabel="Try again"
+        (action)="store.load()"
+      />
+    }
+    @case ('success') {
+      <p class="results-count" aria-live="polite">
+        Showing {{ store.filteredLeagues().length }} of {{ store.totalCount() }} leagues
+      </p>
+
+      @if (store.filteredLeagues().length) {
+        <app-league-list
+          [leagues]="store.filteredLeagues()"
+          [expandedLeagueId]="store.expandedLeagueId()"
+          [featuredLeagueId]="store.featuredLeagueId"
+          (toggle)="store.toggleExpanded($event)"
+        />
+      } @else {
+        <app-state-message
+          icon="search_off"
+          title="No leagues found"
+          message="Try a different name or sport."
+          [actionLabel]="store.hasActiveFilters() ? 'Clear filters' : undefined"
+          (action)="store.clearFilters()"
+        />
+      }
+    }
+  }
+</section>

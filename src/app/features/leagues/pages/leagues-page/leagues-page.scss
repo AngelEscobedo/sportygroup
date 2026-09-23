@@ -1,0 +1,30 @@
+:host {
+  display: block;
+}
+
+.page-title {
+  margin: 0;
+  font: var(--mat-sys-headline-medium);
+  font-weight: 700;
+}
+
+.page-subtitle {
+  margin: 0;
+  font: var(--mat-sys-body-large);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+// Keep filters reachable while scrolling long lists.
+.filters {
+  position: sticky;
+  top: 64px;
+  z-index: 1;
+  padding: 12px 0;
+  background: var(--mat-sys-surface);
+}
+
+.results-count {
+  margin: 0;
+  font: var(--mat-sys-label-large);
+  color: var(--mat-sys-on-surface-variant);
+}

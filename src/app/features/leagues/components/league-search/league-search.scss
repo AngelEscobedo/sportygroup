@@ -1,0 +1,8 @@
+:host {
+  display: block;
+}
+
+// Hide the native "x" of type="search"; we render our own clear button.
+input[type='search']::-webkit-search-cancel-button {
+  appearance: none;
+}

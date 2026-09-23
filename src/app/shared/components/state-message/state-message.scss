@@ -1,0 +1,26 @@
+:host {
+  display: block;
+}
+
+.state-icon {
+  width: 48px;
+  height: 48px;
+  font-size: 48px;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.error .state-icon {
+  color: var(--mat-sys-error);
+}
+
+.state-title {
+  margin: 0;
+  font: var(--mat-sys-title-large);
+}
+
+.state-message {
+  margin: 0;
+  max-width: 40ch;
+  font: var(--mat-sys-body-medium);
+  color: var(--mat-sys-on-surface-variant);
+}

@@ -1,0 +1,113 @@
+:host {
+  display: block;
+}
+
+.card {
+  overflow: hidden;
+  border-radius: var(--mat-sys-corner-large);
+  border: 1px solid var(--mat-sys-outline-variant);
+  background: var(--mat-sys-surface-container-low);
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    transform 200ms ease;
+}
+
+:host(:hover) .card {
+  border-color: var(--mat-sys-primary);
+  box-shadow: var(--mat-sys-level2);
+  transform: translateY(-2px);
+}
+
+:host(.expanded) .card {
+  border-color: var(--mat-sys-primary);
+  box-shadow: var(--mat-sys-level3);
+  transform: none;
+}
+
+:host(.featured) .card {
+  background: linear-gradient(
+    135deg,
+    var(--mat-sys-primary-container) 0%,
+    var(--mat-sys-surface-container-low) 70%
+  );
+}
+
+.card-header {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 3px solid var(--mat-sys-primary);
+    outline-offset: -3px;
+    border-radius: var(--mat-sys-corner-large);
+  }
+}
+
+.sport-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--mat-sys-corner-medium);
+  background: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+}
+
+.sport-chip,
+.featured-chip {
+  font: var(--mat-sys-label-small);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: var(--mat-sys-corner-full);
+}
+
+.sport-chip {
+  background: var(--mat-sys-secondary-container);
+  color: var(--mat-sys-on-secondary-container);
+}
+
+.featured-chip {
+  background: var(--mat-sys-tertiary);
+  color: var(--mat-sys-on-tertiary);
+}
+
+.league-name {
+  font: var(--mat-sys-title-medium);
+  color: var(--mat-sys-on-surface);
+}
+
+.league-alt {
+  font: var(--mat-sys-body-small);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.chevron {
+  color: var(--mat-sys-on-surface-variant);
+  transition: transform 250ms ease;
+}
+
+:host(.expanded) .chevron {
+  transform: rotate(180deg);
+}
+
+.card-body {
+  border-top: 1px solid var(--mat-sys-outline-variant);
+}
+
+.card-body-enter {
+  animation: card-body-enter 250ms ease-out;
+}
+
+@keyframes card-body-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  height: 64px;
+  padding: 0;
+  background: var(--mat-sys-surface-container);
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+}
+
+.brand-icon {
+  color: var(--mat-sys-primary);
+}
+
+.brand {
+  font: var(--mat-sys-title-large);
+
+  strong {
+    color: var(--mat-sys-primary);
+  }
+}

@@ -1,0 +1,67 @@
+:host {
+  display: block;
+}
+
+.badge-frame {
+  width: 120px;
+  height: 120px;
+  padding: 8px;
+  border-radius: var(--mat-sys-corner-large);
+  background: var(--mat-sys-surface-container-highest);
+}
+
+.badge-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+dl,
+dd,
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.label {
+  font: var(--mat-sys-label-small);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.value {
+  font: var(--mat-sys-body-large);
+  color: var(--mat-sys-on-surface);
+}
+
+.alt-chip {
+  font: var(--mat-sys-label-medium);
+  padding: 4px 10px;
+  border-radius: var(--mat-sys-corner-full);
+  border: 1px solid var(--mat-sys-outline-variant);
+}
+
+.muted {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.caption {
+  font: var(--mat-sys-body-small);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.skeleton {
+  display: inline-block;
+  height: 1em;
+  border-radius: 4px;
+  background: var(--mat-sys-surface-container-highest);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,24 @@
+<mat-form-field appearance="outline" subscriptSizing="dynamic" class="w-full">
+  <mat-label>Search leagues</mat-label>
+  <mat-icon matPrefix>search</mat-icon>
+  <input
+    #searchInput
+    matInput
+    type="search"
+    autocomplete="off"
+    placeholder="e.g. Premier League"
+    [value]="value()"
+    (input)="onInput($event)"
+  />
+  @if (searchInput.value) {
+    <button
+      matIconButton
+      matSuffix
+      type="button"
+      aria-label="Clear search"
+      (click)="clear(searchInput)"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  }
+</mat-form-field>

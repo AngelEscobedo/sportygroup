@@ -1,0 +1,15 @@
+<mat-form-field appearance="outline" subscriptSizing="dynamic" class="w-full">
+  <mat-label>Sport</mat-label>
+  <mat-icon matPrefix>{{ selected() ? sportIcon(selected()!) : 'filter_list' }}</mat-icon>
+  <mat-select [value]="selected()" (valueChange)="selectedChange.emit($event)">
+    <mat-option [value]="null">All sports</mat-option>
+    @for (sport of sports(); track sport) {
+      <mat-option [value]="sport">
+        <span class="flex items-center gap-2">
+          <mat-icon class="option-icon">{{ sportIcon(sport) }}</mat-icon>
+          {{ sport }}
+        </span>
+      </mat-option>
+    }
+  </mat-select>
+</mat-form-field>
