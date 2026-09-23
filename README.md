@@ -26,16 +26,16 @@ npm start          # http://localhost:4200
 - Click a card to expand it: it loads the first season that has a badge and the league's alternate names.
 - Every API response is cached in memory, so re-opening a card does not repeat the requests.
 - The English Premier League is pinned first and highlighted as "Featured".
-- Responsive grid (1 / 2 / 3 columns) with light and dark themes based on the OS setting. Loading, empty and error states. Keyboard and screen-reader friendly.
+- Responsive grid (1 / 2 / 3 columns) with a dark "match-night" theme inspired by the Premier League stats pages. Loading, empty and error states. Keyboard and screen-reader friendly.
 
 ## Design decisions
 
 - **Purpose**: a league browser, the entry point of a bookmaker product. The goals are to find a league fast, recognise it (name, sport, alternate names), surface the most relevant league first, and keep backend calls to a minimum.
 - **Architecture**: component based, with standalone components. `LeaguesPage` is the only container. Search, filter, list and card are presentational (`input()` / `output()`). All state lives in a small **signals store** (`LeaguesStore`); derived data (filtered list, sports list) is `computed`, so it is never stored twice. NgRx was not needed at this size.
-- **API handling**: `SportsApiService` is the only place that knows the API. It normalizes the quirks: `all_leagues.php` has no `strLeagueAlternate`, so that field is loaded from `lookupleague.php` when a card is expanded; the first seasons often have `strBadge: null`, so the first season *with* a badge is used; an invalid id returns a string and is treated as "no badge"; v2 requires a premium key, so v1 is used.
+- **API handling**: `SportsApiService` is the only place that knows the API. It normalizes the quirks: `all_leagues.php` has no `strLeagueAlternate`, so that field is loaded from `lookupleague.php` when a card is expanded; the first seasons often have `strBadge: null`, so the first season _with_ a badge is used; an invalid id returns a string and is treated as "no badge"; v2 requires a premium key, so v1 is used.
 - **Caching**: `RequestCache` shares one observable per request (`shareReplay`). Repeat calls and concurrent calls hit the network once, and errors are evicted so retries work. Request budget: `1 + 2 × distinct leagues opened`.
-- **UX**: an expandable card instead of a modal (the badge shows in context, one card open at a time). The Premier League is featured for a UK audience. Search is debounced and accent-insensitive. Loading, empty and error states. Accessible, responsive, light and dark theme.
-- **Styling**: Angular Material for accessible interactive components and theme tokens; Tailwind v4 for layout and spacing (preflight disabled to avoid clashes).
+- **UX**: an expandable card instead of a modal (the badge shows in context, one card open at a time). The Premier League is featured for a UK audience. Search is debounced and accent-insensitive. Loading, empty and error states. Accessible and responsive.
+- **Styling**: Angular Material for accessible interactive components and theme tokens; Tailwind v4 for layout and spacing (preflight disabled to avoid clashes). The visual design takes its palette (deep purple, cyan, green and pink accents), gradient hero and rounded cards from the Premier League stats pages; no logos or brand assets are used.
 - **Free-tier limits**: the free key returns a small, Soccer-only subset, so the sport dropdown (built from the data) currently lists only Soccer.
 
 ## Docs

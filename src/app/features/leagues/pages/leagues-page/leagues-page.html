@@ -1,9 +1,14 @@
-<section class="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-6 sm:py-10">
-  <header class="flex flex-col gap-1">
-    <h1 class="page-title">Sports Leagues</h1>
-    <p class="page-subtitle">Browse leagues and tap a card to reveal its season badge.</p>
-  </header>
+<header class="hero">
+  <div class="mx-auto flex w-full max-w-6xl flex-col gap-2 px-4 py-10 sm:py-14">
+    <span class="hero-eyebrow">Leagues Centre</span>
+    <h1 class="hero-title">Sports Leagues</h1>
+    <p class="hero-subtitle">
+      Find a league, filter by sport and tap a card to reveal its season badge.
+    </p>
+  </div>
+</header>
 
+<section class="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 pb-12">
   <div class="filters grid grid-cols-1 gap-3 sm:grid-cols-[2fr_1fr]" role="search">
     <app-league-search [value]="store.searchTerm()" (searchChange)="store.setSearchTerm($event)" />
     <app-sport-filter

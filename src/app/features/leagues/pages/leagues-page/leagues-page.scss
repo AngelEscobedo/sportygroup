@@ -2,16 +2,52 @@
   display: block;
 }
 
-.page-title {
-  margin: 0;
-  font: var(--mat-sys-headline-medium);
-  font-weight: 700;
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--app-hero-gradient);
+
+  // Subtle diagonal stripes for texture.
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -60deg,
+      rgb(255 255 255 / 0.04) 0 2px,
+      transparent 2px 28px
+    );
+    pointer-events: none;
+  }
+
+  > div {
+    position: relative;
+    z-index: 1;
+  }
 }
 
-.page-subtitle {
+.hero-eyebrow {
+  font: var(--mat-sys-label-large);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mat-sys-tertiary);
+}
+
+.hero-title {
   margin: 0;
+  font-family: var(--mat-sys-display-medium-font);
+  font-size: clamp(2.25rem, 6vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+  margin: 0;
+  max-width: 52ch;
   font: var(--mat-sys-body-large);
-  color: var(--mat-sys-on-surface-variant);
+  color: rgb(255 255 255 / 0.85);
 }
 
 // Keep filters reachable while scrolling long lists.
@@ -19,7 +55,7 @@
   position: sticky;
   top: 64px;
   z-index: 1;
-  padding: 12px 0;
+  padding: 16px 0 8px;
   background: var(--mat-sys-surface);
 }
 

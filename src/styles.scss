@@ -1,19 +1,76 @@
 @use '@angular/material' as mat;
 
+// Dark "match-night" palette inspired by the Premier League stats pages.
+// Components consume these through Material's --mat-sys-* tokens.
+$pl-bg: #1e0021;
+$pl-surface: #28002b;
+$pl-purple: #37003c;
+$pl-purple-light: #41054b;
+$pl-muted: #af99b1;
+$pl-cyan: #04f5ff;
+$pl-green: #00ff85;
+$pl-pink: #e90052;
+
 html {
   height: 100%;
-  // Follow the user's OS preference (light / dark).
-  color-scheme: light dark;
+  color-scheme: dark;
 
   @include mat.theme(
     (
       color: (
-        primary: mat.$green-palette,
+        primary: mat.$cyan-palette,
         tertiary: mat.$spring-green-palette,
+        theme-type: dark,
       ),
-      typography: Roboto,
+      typography: (
+        plain-family: 'Plus Jakarta Sans',
+        brand-family: 'Plus Jakarta Sans',
+        bold-weight: 800,
+        medium-weight: 600,
+        regular-weight: 400,
+      ),
       density: 0,
     )
+  );
+
+  @include mat.theme-overrides(
+    (
+      primary: $pl-cyan,
+      on-primary: $pl-purple,
+      primary-container: $pl-purple-light,
+      on-primary-container: #fff,
+      secondary-container: $pl-purple-light,
+      on-secondary-container: #fff,
+      tertiary: $pl-green,
+      on-tertiary: $pl-purple,
+      surface: $pl-bg,
+      on-surface: #fff,
+      on-surface-variant: $pl-muted,
+      surface-container-lowest: #170019,
+      surface-container-low: $pl-surface,
+      surface-container: #2d0031,
+      surface-container-high: $pl-purple,
+      surface-container-highest: $pl-purple-light,
+      outline: #7a5a7e,
+      outline-variant: #4d1a54,
+      error: #ff4d7d,
+    )
+  );
+
+  // Extra brand tokens not covered by Material.
+  --app-pink: #{$pl-pink};
+  --app-hero-gradient: linear-gradient(
+    100deg,
+    #{$pl-purple} 0%,
+    #6b0f7a 45%,
+    #2b5bd7 80%,
+    #{$pl-cyan} 120%
+  );
+  --app-featured-gradient: linear-gradient(
+    135deg,
+    #{$pl-pink} 0%,
+    #7a0059 45%,
+    #{$pl-surface} 100%
   );
 }
 

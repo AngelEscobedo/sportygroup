@@ -24,7 +24,7 @@ I used **Claude Code** (Anthropic, Claude Opus model) as a pair programmer durin
 | Caching             | Helped write `RequestCache` with `shareReplay`, including de-duplication of in-flight requests and evicting errors so retries work.                                                                           |
 | Tests               | Drafted unit tests for the cache, the API service (`HttpTestingController`) and the store.                                                                                                                    |
 | Verification        | Checked the app in a browser: expand/collapse, one request per league in the network log, search, the empty state and the mobile layout.                                                                      |
-| Docs                | Drafted the first versions of README and CLAUDE.md, which I restructured around the app's purpose and how the API works.                                                              |
+| Docs                | Drafted the first versions of README and CLAUDE.md, which I restructured around the app's purpose and how the API works.                                                                                      |
 
 ## How I validated the output
 

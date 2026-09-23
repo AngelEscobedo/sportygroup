@@ -6,8 +6,11 @@
   width: 120px;
   height: 120px;
   padding: 8px;
-  border-radius: var(--mat-sys-corner-large);
-  background: var(--mat-sys-surface-container-highest);
+  border-radius: 12px;
+  background: #fff;
+  // Keep spinner and retry button readable on the white frame.
+  --mat-progress-spinner-active-indicator-color: #37003c;
+  --mat-button-text-label-text-color: #37003c;
 }
 
 .badge-img {
@@ -40,7 +43,12 @@ ul {
   font: var(--mat-sys-label-medium);
   padding: 4px 10px;
   border-radius: var(--mat-sys-corner-full);
-  border: 1px solid var(--mat-sys-outline-variant);
+  background: var(--mat-sys-surface-container-highest);
+}
+
+.badge-frame .muted,
+.badge-frame .caption {
+  color: var(--mat-sys-surface-container-high);
 }
 
 .muted {
